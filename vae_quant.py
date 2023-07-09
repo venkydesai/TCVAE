@@ -287,10 +287,12 @@ def setup_data_loaders(args, use_cuda=False):
         train_set = dset.Faces()
     else:
         raise ValueError('Unknown dataset ' + str(args.dataset))
-
+    print("Reached_2")
     kwargs = {'num_workers': 4, 'pin_memory': use_cuda}
+    print("Reached_3")
     train_loader = DataLoader(dataset=train_set,
         batch_size=args.batch_size, shuffle=True, **kwargs)
+    print("Reached_4")
     return train_loader
 
 
@@ -433,7 +435,8 @@ def main():
             if utils.isnan(obj).any():
                 raise ValueError('NaN spotted in objective.')
             obj.mean().mul(-1).backward()
-            elbo_running_mean.update(elbo.mean().data[0])
+            # elbo_running_mean.update(elbo.mean().data[0])
+            elbo_running_mean.update(elbo.mean().data.item())
             optimizer.step()
 
             # report training diagnostics
