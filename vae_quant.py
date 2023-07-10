@@ -306,11 +306,12 @@ def display_samples(model, x, vis):
     global win_samples, win_test_reco, win_latent_walk
 
     # plot random samples
-    sample_mu = model.model_sample(batch_size=5).sigmoid()#100
+    sample_mu = model.model_sample(batch_size=100).sigmoid()#100
     sample_mu = sample_mu
-    images = list(sample_mu.view(-1, 1, 64, 64).data.cpu())
-    print("images:",images.shape)
-    win_samples = vis.images(images, 5, 2, opts={'caption': 'samples'}, win=win_samples) #10   
+    temp= sample_mu.view(-1, 1, 64, 64).data.cpu()
+    # images = list(sample_mu.view(-1, 1, 64, 64).data.cpu())
+    print("images:",temp.shape)
+    win_samples = vis.images(images, 10, 2, opts={'caption': 'samples'}, win=win_samples) #10   
 
     # plot the reconstructed distribution for the first 50 test images
     test_imgs = x[:50, :]
