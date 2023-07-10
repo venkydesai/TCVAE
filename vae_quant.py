@@ -404,6 +404,7 @@ def main():
         prior_dist = FactorialNormalizingFlow(dim=args.latent_dim, nsteps=32)
         q_dist = dist.Normal()
 
+    print("*******************************************")
     vae = VAE(z_dim=args.latent_dim, use_cuda=True, prior_dist=prior_dist, q_dist=q_dist,
         include_mutinfo=not args.exclude_mutinfo, tcvae=args.tcvae, conv=args.conv, mss=args.mss)
 
