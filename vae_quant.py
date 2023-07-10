@@ -319,9 +319,10 @@ def display_samples(model, x, vis):
     reco_imgs = reco_imgs.sigmoid()
     test_reco_imgs = torch.cat([
         test_imgs.view(1, -1, 64, 64), reco_imgs.view(1, -1, 64, 64)], 0).transpose(0, 1)
+    temp_2=test_reco_imgs.contiguous().view(-1, 1, 64, 64).data.cpu()
     win_test_reco = vis.images(
-        list(test_reco_imgs.contiguous().view(-1, 1, 64, 64).data.cpu()), 10, 2,
-        opts={'caption': 'test reconstruction image'}, win=win_test_reco)
+        temp_2, 10, 2,
+        opts={'caption': 'test reconstruction image'}, win=win_test_reco) #list(test_reco_imgs.contiguous().view(-1, 1, 64, 64).data.cpu())
 
     # plot latent walks (change one variable while all others stay the same)
     zs = zs[0:3]
