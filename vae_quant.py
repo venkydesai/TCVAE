@@ -310,7 +310,7 @@ def display_samples(model, x, vis):
     sample_mu = sample_mu
     temp= sample_mu.view(-1, 1, 64, 64).data.cpu()
     # images = list(sample_mu.view(-1, 1, 64, 64).data.cpu())
-    print("images:",temp.shape)
+    # print("images:",temp.shape)
     win_samples = vis.images(temp, 10, 2, opts={'caption': 'samples'}, win=win_samples) #10   
 
     # plot the reconstructed distribution for the first 50 test images
@@ -338,9 +338,9 @@ def display_samples(model, x, vis):
         zs_walk = zs_delta + vec[None]
         xs_walk = model.decoder.forward(zs_walk.view(-1, z_dim)).sigmoid()
         xs.append(xs_walk)
-
-    xs = list(torch.cat(xs, 0).data.cpu())
-    win_latent_walk = vis.images(xs, 7, 2, opts={'caption': 'latent walk'}, win=win_latent_walk)
+    temp_3=torch.cat(xs, 0).data.cpu()
+    # xs = list(torch.cat(xs, 0).data.cpu())
+    win_latent_walk = vis.images(temp_3, 7, 2, opts={'caption': 'latent walk'}, win=win_latent_walk)
 
 
 def plot_elbo(train_elbo, vis):
