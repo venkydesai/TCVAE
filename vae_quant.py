@@ -309,6 +309,7 @@ def display_samples(model, x, vis):
     sample_mu = model.model_sample(batch_size=5).sigmoid()#100
     sample_mu = sample_mu
     images = list(sample_mu.view(-1, 1, 64, 64).data.cpu())
+    print("images:",images.shape)
     win_samples = vis.images(images, 5, 2, opts={'caption': 'samples'}, win=win_samples) #10   
 
     # plot the reconstructed distribution for the first 50 test images
