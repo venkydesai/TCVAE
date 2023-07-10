@@ -311,7 +311,7 @@ def display_samples(model, x, vis):
     temp= sample_mu.view(-1, 1, 64, 64).data.cpu()
     # images = list(sample_mu.view(-1, 1, 64, 64).data.cpu())
     print("images:",temp.shape)
-    win_samples = vis.images(images, 10, 2, opts={'caption': 'samples'}, win=win_samples) #10   
+    win_samples = vis.images(temp, 10, 2, opts={'caption': 'samples'}, win=win_samples) #10   
 
     # plot the reconstructed distribution for the first 50 test images
     test_imgs = x[:50, :]
