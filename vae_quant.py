@@ -412,8 +412,9 @@ def main():
 
     # setup visdom for visualization
     if args.visdom:
-        vis = visdom.Visdom(env=args.save, port=8097)#4500
-
+        print("Venky")
+        vis = visdom.Visdom(env=args.save, port=4500)#4500
+        print("Venky_2")
     train_elbo = []
 
     # training loop
