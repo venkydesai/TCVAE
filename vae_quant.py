@@ -9,6 +9,7 @@ import torch.optim as optim
 import visdom
 from torch.autograd import Variable
 from torch.utils.data import DataLoader
+import plotly.express as px
 
 import lib.dist as dist
 import lib.utils as utils
@@ -312,7 +313,9 @@ def display_samples(model, x, vis):
     # images = list(sample_mu.view(-1, 1, 64, 64).data.cpu())
     # print("images:",temp.shape)
     print("clearing")
-    win_samples = vis.images(temp, 10, 2, opts={'caption': 'samples'}, win=win_samples) #10  
+    # win_samples = vis.images(temp, 10, 2, opts={'caption': 'samples'}, win=win_samples) #10
+    win_samples = px.imshow(images, 10, 2, opts={'caption': 'samples'}, title='samples')
+  
     print("cleared") 
 
     # plot the reconstructed distribution for the first 50 test images
@@ -323,7 +326,8 @@ def display_samples(model, x, vis):
         test_imgs.view(1, -1, 64, 64), reco_imgs.view(1, -1, 64, 64)], 0).transpose(0, 1)
     temp_2=test_reco_imgs.contiguous().view(-1, 1, 64, 64).data.cpu()
     print("clearing_2")
-    win_test_reco = vis.images(temp_2, 10, 2,opts={'caption': 'test reconstruction image'}, win=win_test_reco) #list(test_reco_imgs.contiguous().view(-1, 1, 64, 64).data.cpu())
+    # win_test_reco = vis.images(temp_2, 10, 2,opts={'caption': 'test reconstruction image'}, win=win_test_reco) #list(test_reco_imgs.contiguous().view(-1, 1, 64, 64).data.cpu())
+    win_test_reco = px.imshow(temp_2, 10, 2, opts={'caption': 'test reconstruction image'}, title='test reconstruction image')
     print("cleared_2")
     # plot latent walks (change one variable while all others stay the same)
     zs = zs[0:3]
@@ -341,7 +345,8 @@ def display_samples(model, x, vis):
         xs.append(xs_walk)
     temp_3=torch.cat(xs, 0).data.cpu()
     # xs = list(torch.cat(xs, 0).data.cpu())
-    win_latent_walk = vis.images(temp_3, 7, 2, opts={'caption': 'latent walk'}, win=win_latent_walk)
+    # win_latent_walk = vis.images(temp_3, 7, 2, opts={'caption': 'latent walk'}, win=win_latent_walk)
+    win_latent_walk = px.imshow(temp_3, 7, 2, opts={'caption': 'latent walk'}, title='latent walk')
 
 
 def plot_elbo(train_elbo, vis):
