@@ -314,7 +314,7 @@ def display_samples(model, x, vis):
     # print("images:",temp.shape)
     print("clearing")
     # win_samples = vis.images(temp, 10, 2, opts={'caption': 'samples'}, win=win_samples) #10
-    win_samples = px.imshow(temp, 10, 2, opts={'caption': 'samples'}, title='samples')
+    win_samples = px.imshow(temp, 10, 2, title='samples')
   
     print("cleared") 
 
