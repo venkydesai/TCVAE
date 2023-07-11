@@ -327,7 +327,7 @@ def display_samples(model, x, vis):
     temp_2=test_reco_imgs.contiguous().view(-1, 1, 64, 64).data.cpu()
     print("clearing_2")
     # win_test_reco = vis.images(temp_2, 10, 2,opts={'caption': 'test reconstruction image'}, win=win_test_reco) #list(test_reco_imgs.contiguous().view(-1, 1, 64, 64).data.cpu())
-    win_test_reco = px.imshow(temp_2, 10, 2, opts={'caption': 'test reconstruction image'}, title='test reconstruction image')
+    win_test_reco = px.imshow(temp_2, 10, 2, title='test reconstruction image')
     print("cleared_2")
     # plot latent walks (change one variable while all others stay the same)
     zs = zs[0:3]
@@ -346,7 +346,7 @@ def display_samples(model, x, vis):
     temp_3=torch.cat(xs, 0).data.cpu()
     # xs = list(torch.cat(xs, 0).data.cpu())
     # win_latent_walk = vis.images(temp_3, 7, 2, opts={'caption': 'latent walk'}, win=win_latent_walk)
-    win_latent_walk = px.imshow(temp_3, 7, 2, opts={'caption': 'latent walk'}, title='latent walk')
+    win_latent_walk = px.imshow(temp_3, 7, 2, title='latent walk')
 
 
 def plot_elbo(train_elbo, vis):
