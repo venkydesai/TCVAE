@@ -9,7 +9,9 @@ import torch.optim as optim
 import visdom
 from torch.autograd import Variable
 from torch.utils.data import DataLoader
-import plotly.express as px
+# import plotly.express as px
+import torchvision.utils as vutils
+import matplotlib.pyplot as plt
 
 import lib.dist as dist
 import lib.utils as utils
@@ -301,10 +303,10 @@ win_samples = None
 win_test_reco = None
 win_latent_walk = None
 win_train_elbo = None
-
+loop=0
 
 def display_samples(model, x, vis):
-    global win_samples, win_test_reco, win_latent_walk
+    global win_samples, win_test_reco, win_latent_walk,loop
 
     # plot random samples
     sample_mu = model.model_sample(batch_size=100).sigmoid()#100
@@ -314,10 +316,10 @@ def display_samples(model, x, vis):
     # print("images:",temp.shape)
     print("clearing")
     # win_samples = vis.images(temp, 10, 2, opts={'caption': 'samples'}, win=win_samples) #10
-    win_samples = px.imshow(temp, 10, 2, title='samples')
+    # win_samples = px.imshow(temp, 10, 2, title='samples')
+    win_samples=vutils.make_grid(temp,nrow=10, padding=2)
+    vutils.save_image(win_samples, "samples/samples"+str(loop)+".png")
   
-    print("cleared") 
-
     # plot the reconstructed distribution for the first 50 test images
     test_imgs = x[:50, :]
     _, reco_imgs, zs, _ = model.reconstruct_img(test_imgs)
@@ -327,8 +329,10 @@ def display_samples(model, x, vis):
     temp_2=test_reco_imgs.contiguous().view(-1, 1, 64, 64).data.cpu()
     print("clearing_2")
     # win_test_reco = vis.images(temp_2, 10, 2,opts={'caption': 'test reconstruction image'}, win=win_test_reco) #list(test_reco_imgs.contiguous().view(-1, 1, 64, 64).data.cpu())
-    win_test_reco = px.imshow(temp_2, 10, 2, title='test reconstruction image')
+    win_test_reco=vutils.make_grid(temp_2,nrow=10, padding=2)
+    vutils.save_image(win_test_reco, "reco/reco"+str(loop)+".png")
     print("cleared_2")
+
     # plot latent walks (change one variable while all others stay the same)
     zs = zs[0:3]
     batch_size, z_dim = zs.size()
@@ -346,7 +350,10 @@ def display_samples(model, x, vis):
     temp_3=torch.cat(xs, 0).data.cpu()
     # xs = list(torch.cat(xs, 0).data.cpu())
     # win_latent_walk = vis.images(temp_3, 7, 2, opts={'caption': 'latent walk'}, win=win_latent_walk)
-    win_latent_walk = px.imshow(temp_3, 7, 2, title='latent walk')
+    # win_latent_walk = px.imshow(temp_3, 7, 2, title='latent walk')
+    win_latent_walk =vutils.make_grid(temp_3,nrow=10, padding=2)
+    vutils.save_image(win_latent_walk, "latent/latent"+str(loop)+".png")
+    
 
 
 def plot_elbo(train_elbo, vis):
