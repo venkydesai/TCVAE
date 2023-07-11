@@ -353,6 +353,7 @@ def display_samples(model, x, vis):
     # win_latent_walk = px.imshow(temp_3, 7, 2, title='latent walk')
     win_latent_walk =vutils.make_grid(temp_3,nrow=10, padding=2)
     vutils.save_image(win_latent_walk, "latent/latent"+str(loop)+".png")
+    loop+=1
     
 
 
