@@ -318,7 +318,7 @@ def display_samples(model, x, vis):
     # win_samples = vis.images(temp, 10, 2, opts={'caption': 'samples'}, win=win_samples) #10
     # win_samples = px.imshow(temp, 10, 2, title='samples')
     win_samples=vutils.make_grid(temp,nrow=10, padding=2)
-    vutils.save_image(win_samples, "samples/samples"+str(loop)+".png")
+    vutils.save_image(win_samples, "samples_celeba/samples"+str(loop)+".png")
   
     # plot the reconstructed distribution for the first 50 test images
     test_imgs = x[:50, :]
@@ -330,7 +330,7 @@ def display_samples(model, x, vis):
     # print("clearing_2")
     # win_test_reco = vis.images(temp_2, 10, 2,opts={'caption': 'test reconstruction image'}, win=win_test_reco) #list(test_reco_imgs.contiguous().view(-1, 1, 64, 64).data.cpu())
     win_test_reco=vutils.make_grid(temp_2,nrow=10, padding=2)
-    vutils.save_image(win_test_reco, "reco/reco"+str(loop)+".png")
+    vutils.save_image(win_test_reco, "reco_celeba/reco"+str(loop)+".png")
     # print("cleared_2")
 
     # plot latent walks (change one variable while all others stay the same)
@@ -352,7 +352,7 @@ def display_samples(model, x, vis):
     # win_latent_walk = vis.images(temp_3, 7, 2, opts={'caption': 'latent walk'}, win=win_latent_walk)
     # win_latent_walk = px.imshow(temp_3, 7, 2, title='latent walk')
     win_latent_walk =vutils.make_grid(temp_3,nrow=10, padding=2)
-    vutils.save_image(win_latent_walk, "latent/latent"+str(loop)+".png")
+    vutils.save_image(win_latent_walk, "latent_celeba/latent"+str(loop)+".png")
     loop+=1
     
 

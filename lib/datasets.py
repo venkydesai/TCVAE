@@ -3,6 +3,10 @@ import torch
 import torchvision.datasets as datasets
 import torchvision.transforms as transforms
 
+import os
+from PIL import Image
+import torch
+import torchvision.transforms as transforms
 
 class Shapes(object):
 
@@ -24,7 +28,19 @@ class Shapes(object):
 
 class Dataset(object):
     def __init__(self, loc):
-        self.dataset = torch.load(loc).float().div(255).view(-1, 1, 64, 64)
+        # self.dataset = torch.load(loc).float().div(255).view(-1, 1, 64, 64)
+        # transform = transforms.ToTensor()
+        transform = transforms.Compose([transforms.Resize(64),transforms.CenterCrop(64),transforms.ToTensor()])
+        # Load the images in the folder
+        dataset = []
+        for filename in os.listdir('/home/desai.ven/TCVAE/img_align_celeba'):
+            # image = Image.open(os.path.join("images", filename))
+            image = Image.open(os.path.join('/home/desai.ven/TCVAE/img_align_celeba', filename))
+            image = transform(image)
+            dataset.append(image)
+
+        # Convert the images to a tensor
+        dataset = torch.stack(dataset)
 
     def __len__(self):
         return self.dataset.size(0)
