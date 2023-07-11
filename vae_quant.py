@@ -290,12 +290,12 @@ def setup_data_loaders(args, use_cuda=False):
         train_set = dset.Faces()
     else:
         raise ValueError('Unknown dataset ' + str(args.dataset))
-    print("Reached_2")
+    
     kwargs = {'num_workers': 4, 'pin_memory': use_cuda}
-    print("Reached_3")
+    
     train_loader = DataLoader(dataset=train_set,
         batch_size=args.batch_size, shuffle=True, **kwargs)
-    print("Reached_4")
+    
     return train_loader
 
 
@@ -314,7 +314,7 @@ def display_samples(model, x, vis):
     temp= sample_mu.view(-1, 1, 64, 64).data.cpu()
     # images = list(sample_mu.view(-1, 1, 64, 64).data.cpu())
     # print("images:",temp.shape)
-    print("clearing")
+    # print("clearing")
     # win_samples = vis.images(temp, 10, 2, opts={'caption': 'samples'}, win=win_samples) #10
     # win_samples = px.imshow(temp, 10, 2, title='samples')
     win_samples=vutils.make_grid(temp,nrow=10, padding=2)
@@ -327,11 +327,11 @@ def display_samples(model, x, vis):
     test_reco_imgs = torch.cat([
         test_imgs.view(1, -1, 64, 64), reco_imgs.view(1, -1, 64, 64)], 0).transpose(0, 1)
     temp_2=test_reco_imgs.contiguous().view(-1, 1, 64, 64).data.cpu()
-    print("clearing_2")
+    # print("clearing_2")
     # win_test_reco = vis.images(temp_2, 10, 2,opts={'caption': 'test reconstruction image'}, win=win_test_reco) #list(test_reco_imgs.contiguous().view(-1, 1, 64, 64).data.cpu())
     win_test_reco=vutils.make_grid(temp_2,nrow=10, padding=2)
     vutils.save_image(win_test_reco, "reco/reco"+str(loop)+".png")
-    print("cleared_2")
+    # print("cleared_2")
 
     # plot latent walks (change one variable while all others stay the same)
     zs = zs[0:3]
@@ -418,7 +418,7 @@ def main():
         prior_dist = FactorialNormalizingFlow(dim=args.latent_dim, nsteps=32)
         q_dist = dist.Normal()
 
-    print("*******************************************")
+    # print("*******************************************")
     vae = VAE(z_dim=args.latent_dim, use_cuda=True, prior_dist=prior_dist, q_dist=q_dist,
         include_mutinfo=not args.exclude_mutinfo, tcvae=args.tcvae, conv=args.conv, mss=args.mss)
 
@@ -427,9 +427,9 @@ def main():
 
     # setup visdom for visualization
     if args.visdom:
-        print("Venky")
+        # print("Venky")
         vis = visdom.Visdom(env=args.save, port=8097)#4500
-        print("Venky_2")
+        # print("Venky_2")
     train_elbo = []
 
     # training loop
