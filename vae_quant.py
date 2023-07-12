@@ -207,7 +207,7 @@ class VAE(nn.Module):
     def elbo(self, x, dataset_size):
         # log p(x|z) + log p(z) - log q(z|x)
         batch_size = x.size(0)
-        x = x.view(batch_size, 1, 64, 64)
+        x = x.view(batch_size, 3, 64, 64) #1
         prior_params = self._get_prior_params(batch_size)
         x_recon, x_params, zs, z_params = self.reconstruct_img(x)
         logpx = self.x_dist.log_density(x, params=x_params).view(batch_size, -1).sum(1)
@@ -290,7 +290,6 @@ def setup_data_loaders(args, use_cuda=False):
         train_set = dset.Faces()
     else:
         raise ValueError('Unknown dataset ' + str(args.dataset))
-    
     kwargs = {'num_workers': 4, 'pin_memory': use_cuda}
     
     train_loader = DataLoader(dataset=train_set,
