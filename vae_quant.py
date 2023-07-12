@@ -86,7 +86,7 @@ class ConvEncoder(nn.Module):
         self.act = nn.ReLU(inplace=True)
 
     def forward(self, x):
-        h = x.view(-1, 1, 64, 64)
+        h = x.view(-1, 3, 64, 64)#1
         h = self.act(self.bn1(self.conv1(h)))
         h = self.act(self.bn2(self.conv2(h)))
         h = self.act(self.bn3(self.conv3(h)))
@@ -176,7 +176,7 @@ class VAE(nn.Module):
 
     # define the guide (i.e. variational distribution) q(z|x)
     def encode(self, x):
-        x = x.view(x.size(0), 1, 64, 64)
+        x = x.view(x.size(0), 3, 64, 64) #1
         # use the encoder to get the parameters used to define q(z|x)
         z_params = self.encoder.forward(x).view(x.size(0), self.z_dim, self.q_dist.nparams)
         # sample the latent code z
@@ -184,7 +184,7 @@ class VAE(nn.Module):
         return zs, z_params
 
     def decode(self, z):
-        x_params = self.decoder.forward(z).view(z.size(0), 1, 64, 64)
+        x_params = self.decoder.forward(z).view(z.size(0), 3, 64, 64)#1
         xs = self.x_dist.sample(params=x_params)
         return xs, x_params
 
