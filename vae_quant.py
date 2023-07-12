@@ -70,7 +70,7 @@ class ConvEncoder(nn.Module):
         super(ConvEncoder, self).__init__()
         self.output_dim = output_dim
 
-        self.conv1 = nn.Conv2d(1, 32, 4, 2, 1)  # 32 x 32
+        self.conv1 = nn.Conv2d(3, 32, 4, 2, 1)  # 32 x 32 #1
         self.bn1 = nn.BatchNorm2d(32)
         self.conv2 = nn.Conv2d(32, 32, 4, 2, 1)  # 16 x 16
         self.bn2 = nn.BatchNorm2d(32)
