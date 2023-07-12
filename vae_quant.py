@@ -109,7 +109,7 @@ class ConvDecoder(nn.Module):
         self.bn4 = nn.BatchNorm2d(32)
         self.conv5 = nn.ConvTranspose2d(32, 32, 4, 2, 1)  # 32 x 32
         self.bn5 = nn.BatchNorm2d(32)
-        self.conv_final = nn.ConvTranspose2d(32, 1, 4, 2, 1)
+        self.conv_final = nn.ConvTranspose2d(32, 3, 4, 2, 1)#1
 
         # setup the non-linearity
         self.act = nn.ReLU(inplace=True)
