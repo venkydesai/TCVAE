@@ -116,14 +116,14 @@ class ConvDecoder(nn.Module):
 
     def forward(self, z):
         h = z.view(z.size(0), z.size(1), 1, 1)
-        print("h",h.shape)
+        # print("h",h.shape)
         h = self.act(self.bn1(self.conv1(h)))
         h = self.act(self.bn2(self.conv2(h)))
         h = self.act(self.bn3(self.conv3(h)))
         h = self.act(self.bn4(self.conv4(h)))
         h = self.act(self.bn5(self.conv5(h)))
         mu_img = self.conv_final(h)
-        print("mu_img",mu_img.shape)
+        # print("mu_img",mu_img.shape)
         return mu_img
 
 
